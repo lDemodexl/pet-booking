@@ -9,11 +9,15 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return 'Index';
+        return inertia('Index/Index',
+        [
+            'message' => 'Hello Massage'
+        ]
+        );
     }
 
     public function show()
     {
-        return 'Show';
+        return inertia('Index/Show');
     }
 }

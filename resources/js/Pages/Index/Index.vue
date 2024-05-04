@@ -1,9 +1,11 @@
-<template>
-    hello {{ counter }}!
+<template>    
+    Index!    
+    <div>{{ message }}</div>
 </template>
 
-<script setup>
-    import {ref} from 'vue'
-    const counter = ref(0)
-    setInterval(() => counter.value++, 1000)
+<script setup>    
+    defineProps({
+        message: String,
+    })
 </script>
+
