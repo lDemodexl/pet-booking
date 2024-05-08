@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
-class ListingController extends Controller implements HasMiddleware
+class ListingController extends \Illuminate\Routing\Controller 
 {
-    public static function middleware()
+    use AuthorizesRequests;
+    public function __construct()
     {
-        return [
-            new Middleware('auth', except: ['index', 'show']),
-        ];
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->authorizeResource(Listing::class, 'listing');
     }
-
+    
     /**
      * Display a listing of the resource.
      */
@@ -34,6 +34,7 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function create()
     {
+        // $this->authorize('create', Listing::class);
         return inertia('Listing/Create');
     }
 
@@ -42,9 +43,8 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        Listing::create([
-            ...$request->all(),
-            ...$request->validate([
+        $request->user()->listings()->create(
+            $request->validate([
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',
                 'area' => 'required|integer|min:30|max:300',
@@ -55,7 +55,7 @@ class ListingController extends Controller implements HasMiddleware
                 'price' => 'required|integer|min:100',
 
             ])
-        ]);
+        );
 
         return redirect()->route('listing.index')->with('success', 'Listing was created!');
     }
@@ -65,6 +65,12 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function show(Listing $listing)
     {
+        // if(Auth::user()->cannot('view',$listing)){
+        //     abort(403);
+        // };
+
+        // $this->authorize('view', $listing);
+
         return inertia('Listing/Show',
             [
                 'listing' => $listing
@@ -88,7 +94,7 @@ class ListingController extends Controller implements HasMiddleware
     public function update(Request $request, Listing $listing)
     {
         $listing->update([
-            ...$request->validate([
+            $request->validate([
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',
                 'area' => 'required|integer|min:30|max:300',
