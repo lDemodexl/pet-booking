@@ -12,14 +12,6 @@
                 <ListingAddress :listing="listing" class="text-gray-500"></ListingAddress>
             </Link>
         </div>
-        <div>
-            <Link :href="route('listing.edit', listing.id)">
-                Edit
-            </Link>
-            <Link :href="route('listing.destroy', listing.id)" method="delete" as="button">
-                Delete
-            </Link> 
-        </div>
     </Box>
 </template>
 
