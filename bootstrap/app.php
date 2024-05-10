@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,// have to be last one
         ]);
         $middleware->validateCsrfTokens(except: [
-            '/logout',            
+            '/logout',  
+            '/realtor/listing/*'          
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
