@@ -30,6 +30,7 @@ class ListingController extends \Illuminate\Routing\Controller
                 'filters' => $filters,
                 'listings' => Listing::MostRecent()
                     ->filter($filters)
+                    ->withoutSold()
                     ->paginate(10)
                     ->withQueryString()
             ]
@@ -47,10 +48,12 @@ class ListingController extends \Illuminate\Routing\Controller
 
         // $this->authorize('view', $listing);
         $listing->load(['images']);
-
+        $offer = !Auth::user() ? null : $listing->offers()->byMe()->first();
+            // dd($offer);
         return inertia('Listing/Show',
             [
-                'listing' => $listing
+                'listing' => $listing,
+                'offerMade' => $offer
             ]
         );
     }
