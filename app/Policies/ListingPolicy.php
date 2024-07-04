@@ -29,10 +29,10 @@ class ListingPolicy
      */
     public function view(?User $user, Listing $listing): bool
     {
-        if($listing->by_user_id == $user?->id){
+        if($listing->by_user_id === $user?->id){
             return true;
         }
-        return $listing->sold_at == null;
+        return $listing->sold_at === null;
     }
 
     /**
