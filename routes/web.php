@@ -13,7 +13,10 @@ use App\Http\Controllers\NotificationSeenController;
 use App\Http\Controllers\RealtorListingImageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\RealtorListingAcceptOfferController;
+use App\Http\Controllers\SetLocaleController;
+use Illuminate\Support\Facades\App;
 
+Route::post('/locale/{locale?}', [SetLocaleController::class, 'locale'])->name('locale');
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/hello', [IndexController::class, 'show']);

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -44,7 +45,9 @@ class HandleInertiaRequests extends Middleware
                 'name' => $request->user()->name,
                 'email' => $request->user()->email,
                 'notification_count' => $request->user()->unreadNotifications()->count()
-            ]:null
+            ]:null,
+            'locales' => config('app.available_locales'),
+            'current_locale' => App::currentLocale()
         ]);
     }
 }

@@ -21,10 +21,12 @@
                     <div>
                         <Link :href="route('logout')" method="delete" as="button">Logout</Link>
                     </div>
+                    <LanguageSwitcher :locales="page.props.locales" :current_locale="page.props.current_locale"/>
                 </div>
                 <div class="flex items-center gap-2" v-else>
                     <Link :href="route('user-account.create')">Register</Link>
                     <Link :href="route('login')">Sign-In</Link>
+                    <LanguageSwitcher :locales="page.props.locales" :current_locale="page.props.current_locale" />
                 </div>
             </nav>
         </div>
@@ -40,12 +42,14 @@
 </template>
 
 <script setup>
+    import LanguageSwitcher from '@/Components/UI/LanguageSwitcher.vue'
     import {Link, usePage} from '@inertiajs/vue3'
     import {computed} from 'vue'
 
     const page = usePage();
     const flashSuccess = computed(()=> page.props.flash.success)
     const user = computed(()=>page.props.user)
+    
     const notificationCount = computed(
         () => Math.min(page.props.user.notification_count,9),
     )
