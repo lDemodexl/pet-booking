@@ -12,11 +12,11 @@
     "isDynamicEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-ZoMdLVu0.css",
+    "file": "assets/app-D8_w4BsB.css",
     "src": "resources/js/app.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-BayPc0kJ.js",
+    "file": "assets/app-CXi9KSjI.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -25,7 +25,7 @@
       "lang/php_ru.json"
     ],
     "css": [
-      "assets/app-ZoMdLVu0.css"
+      "assets/app-D8_w4BsB.css"
     ]
   }
 }
